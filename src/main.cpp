@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "third_party/bitmap_image.hpp"
+
 
 std::string getTextInput(){
     std::string text{};
@@ -58,10 +60,10 @@ void writeTextToFile(std::string filename, std::string text) {
 
 
 int main() {
-    /*bitmap_image image ("../test.bmp");
-    if (!image){
+    bitmap_image image ("../test.bmp");
+    if (!image)
         std::cout << "Error - could not open the selected image";
-    }
+
     std::vector<uint_fast8_t> rgbVals{};
     int row;
     int col;
@@ -78,8 +80,7 @@ int main() {
                 rgbVals.push_back(color.blue);
             }
         }
-    }*/
+    }
 
     return 0;
-    
 }
