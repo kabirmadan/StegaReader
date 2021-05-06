@@ -1,69 +1,24 @@
-#include <fstream>
-#include <iostream>
-#include <ostream>
-#include <sstream>
-#include <string>
-#include <vector>
+#include <iostream>                         //cin, cout
+#include <string>                           //string
+#include <vector>                           //vector, push_back
 
-#include "third_party/bitmap_image.hpp"
+#include "conversion.h"                     //rgbArrToHexString, hexToText
+#include "io_util.h"                        //getTextInput, writeTextToFile
 
-
-std::string getTextInput(){
-    std::string text{};
-    getline(std::cin, text);
-    return text;
-}
-
-
-std::string rgbArrToHexString(std::vector<uint_fast8_t> rgbVals){
-    std::stringstream hexString;
-    for (int n : rgbVals){
-        if ((n % 10) == n){
-            hexString << std::hex << "0" << n;
-        }
-        else
-            hexString << std::hex << n;
-    }
-    return hexString.str();
-}
-
-
-std::string hexToText(std::string hexString){
-    std::stringstream converted{};
-    std::string seg{};
-    int length {static_cast<int>(std::size(hexString))};
-    uint_fast8_t n{};
-    for (int i{0}; i<length; i+=2) {
-        seg = hexString.substr(i, 2);
-        if (seg == "aa"){
-            converted << "\n\n";
-            i+=2;
-            seg = hexString.substr(i, 2);
-        }
-        else if (seg[0] == 'a'){
-            converted << "\n";
-            ++i;
-            seg = hexString.substr(i, 2);
-        }
-        n = std::stoi(seg, nullptr, 16);
-        converted << n;
-    }
-    return converted.str();
-}
-
-
-void writeTextToFile(std::string filename, std::string text) {
-    std::ofstream file(filename.c_str());
-    file << text;
-    file.close();
-}
+#include "third_party/bitmap_image.hpp"     //bitmap_image, height, width, get_pixel
 
 
 int main() {
-    bitmap_image image ("../test.bmp");
+
+    //open bitmap
+    std::cout << "Enter filename (without .bmp extension): ";
+    std::string filename {getTextInput()};
+    bitmap_image image ("../bitmap/" + filename + ".bmp");
     if (!image)
         std::cout << "Error - could not open the selected image";
 
+    //remaining variable declarations
+    std::string convertedString{};
     std::vector<uint_fast8_t> rgbVals{};
     int row;
     int col;
@@ -71,6 +26,7 @@ int main() {
     unsigned int numCols{image.width()};
     rgb_t color;
 
+    //iterate through image pixel by pixel, storing each R,G, and B value in a vector
     for (row = 0; row < numRows; ++row){
         for (col = 0; col < numCols; ++col) {
             image.get_pixel(col,row,color);
@@ -82,5 +38,14 @@ int main() {
         }
     }
 
+    //convert RGB values to plain text
+    convertedString = rgbArrToHexString(rgbVals);
+    convertedString = hexToText(convertedString);
+
+    //output file
+    writeTextToFile("../" + filename + ".txt", convertedString);
+    std::cout << "\nConversion complete - see '" << filename << ".txt'";
+
     return 0;
+
 }
