@@ -9,4 +9,4 @@ This program takes a bitmap as input from the user, reads the R, G, and B values
 * Make sure the input bitmap is placed in the directory called "bitmap" before running
 * Conversions include space and newline characters
 * The output text file gets saved to the project's root directory
-* Check out [StegaGenerator](https://github.com/kabirmadan/StegaGenerator) to create your own bitmaps
+* A few sample bitmaps have been included in the "bitmap" directory, but check out [StegaGenerator](https://github.com/kabirmadan/StegaGenerator) to generate your own
