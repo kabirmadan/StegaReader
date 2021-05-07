@@ -1,0 +1,3 @@
+/Users/Home/CLionProjects/StegaReader/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/Home/CLionProjects/StegaReader/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/Home/CLionProjects/StegaReader/cmake-build-debug/CMakeFiles/StegaReader.dir

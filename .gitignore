@@ -57,9 +57,6 @@
 ## File-based project format:
 *.iws
 
-# CMake
-cmake-build-*/
-
 ## Plugin-specific files:
 
 # IntelliJ
